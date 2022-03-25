@@ -1,0 +1,14 @@
+services:
+  render_json:
+    class: Drupal\server_json\RenderJSONManager
+  server_json:
+    class: Drupal\server_json\ServerJSON
+  order_json:
+    class: Drupal\server_json\OrderJSON
+  product_json:
+    class: Drupal\server_json\ProductJSON
+  slider_1v1:
+    class: Drupal\server_json\Plugin\Slider1v1
+  categorie_1_0:
+    class: Drupal\server_json\Plugin\Categorie10
+

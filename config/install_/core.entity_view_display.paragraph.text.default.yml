@@ -1,0 +1,30 @@
+uuid: deee24fd-95e4-4587-ab1c-bdb85217ea95
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text.content
+    - field.field.paragraph.text.json_template
+    - paragraphs.paragraphs_type.text
+  module:
+    - text
+id: paragraph.text.default
+targetEntityType: paragraph
+bundle: text
+mode: default
+content:
+  content:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  json_template:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden: {  }

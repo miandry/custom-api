@@ -1,0 +1,9 @@
+uuid: 0e817da4-94fc-4cb2-a7fa-d6dc28d378c7
+langcode: fr
+status: true
+dependencies: {  }
+id: text
+label: 'Text widget'
+icon_uuid: null
+description: 'JSON Template widget text formated'
+behavior_plugins: {  }

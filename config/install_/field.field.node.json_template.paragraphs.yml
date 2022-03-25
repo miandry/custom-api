@@ -1,0 +1,96 @@
+uuid: 5ccf6224-3181-4201-a60f-782ed5732d8c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.paragraphs
+    - node.type.json_template
+    - paragraphs.paragraphs_type.img_link
+    - paragraphs.paragraphs_type.text
+  module:
+    - entity_reference_revisions
+id: node.json_template.paragraphs
+field_name: paragraphs
+entity_type: node
+bundle: json_template
+label: Paragraphs
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      text: text
+      img_link: img_link
+    target_bundles_drag_drop:
+      adress:
+        weight: 22
+        enabled: false
+      text:
+        enabled: true
+        weight: 23
+      commande_portal_attr:
+        weight: 23
+        enabled: false
+      devis:
+        weight: 24
+        enabled: false
+      field_autre_prix_de_vente:
+        weight: 25
+        enabled: false
+      header_one:
+        weight: 26
+        enabled: false
+      home_catalogue:
+        weight: 27
+        enabled: false
+      img_link:
+        enabled: true
+        weight: 28
+      json_data:
+        weight: 29
+        enabled: false
+      livraisons:
+        weight: 30
+        enabled: false
+      plus_detail:
+        weight: 31
+        enabled: false
+      prixsurplus:
+        weight: 32
+        enabled: false
+      prod:
+        weight: 33
+        enabled: false
+      produits:
+        weight: 34
+        enabled: false
+      produits_portal:
+        weight: 35
+        enabled: false
+      promote_catalogue:
+        weight: 36
+        enabled: false
+      reponse_devis:
+        weight: 37
+        enabled: false
+      slider:
+        weight: 38
+        enabled: false
+      store_menu:
+        weight: 39
+        enabled: false
+      taille:
+        weight: 40
+        enabled: false
+      testimonials:
+        weight: 41
+        enabled: false
+      transport:
+        weight: 42
+        enabled: false
+field_type: entity_reference_revisions

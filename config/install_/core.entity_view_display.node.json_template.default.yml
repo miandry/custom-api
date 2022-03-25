@@ -1,0 +1,31 @@
+uuid: 230b5225-eea1-4450-bc7b-0b7c69d5b8ad
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.node.json_template.paragraphs
+    - node.type.json_template
+  module:
+    - entity_reference_revisions
+    - user
+id: node.json_template.default
+targetEntityType: node
+bundle: json_template
+mode: default
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  paragraphs:
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  langcode: true

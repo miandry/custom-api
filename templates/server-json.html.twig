@@ -1,0 +1,288 @@
+{{ attach_library('commande/commande_table') }}
+{{ attach_library('base/base_js') }}
+{{ attach_library('base/json_editor') }}
+<style>
+    .attr-content{
+        font-size: 12px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .title-table{
+        background-color: gray;
+        color: white;
+    }
+</style>
+<table id="table"
+       data-toggle="table"
+       data-url="{{ items.url }}?url=/api/orders"
+       data-show-columns="true"
+       data-search="true"
+       data-show-toggle="false"
+       data-show-pagination-switch="true"
+       data-show-refresh="true"
+       data-pagination="true"
+       data-page-size="10"
+       data-detail-formatter="detailFormatter"
+
+       data-show-footer="true"
+       data-detail-view="true"
+       data-show-export="true"
+       data-sort-name="nid"
+       data-sort-order="desc"
+       data-search="true
+
+       data-page-list="[10, 25, 50, 100, All]"
+>
+<thead>
+ <tr> 
+
+    <th data-field="createdAt"   >Date</th> 
+    <th data-field="user.name"   >Nom du client</th> 
+    <th data-field="user.phone"   >Phone</th> 
+    <th data-field="status"   data-formatter="statusFormatter" >Status</th> 
+    <th data-field="operate" data-class="col-event"  data-formatter="operateFormatter" data-events="operateEvents">action</th>
+     </tr> 
+</thead>
+
+</table>
+<script>
+
+    function actionEdit(row){
+        console.log(row);
+    }
+    function fast_edit(e,value, row, index) {
+        alert('You click like action, row: ' + JSON.stringify(row));
+//        var is_compta = jQuery("#is_comptable").val();
+//        var prod_nid = jQuery(e).attr("data-value");
+//        var com_nid = jQuery(e).attr("data-com_nid");
+//        var tid = jQuery(e).attr("data-status");
+        var pv = row.id ;
+//        var pa = jQuery(e).attr("data-pa");
+//        var pa_com = jQuery(e).attr("data-pa-com");
+//        var qt = jQuery(e).attr("data-qt");
+//        var title = jQuery(e).attr("data-title");
+//        var base_url = jQuery("#base_url").val();
+//        var current_url = jQuery("#current_url").val();
+//        var des = jQuery(e).attr("data-des");
+//        if(des== "undefined"){
+//            des = "" ;
+//        }
+//        var pa_text = '';
+//        var hidden = "";
+//        if (is_compta == 0) {
+//            hidden = "style='display:none'";
+//        }
+//        pa_text = '<div class="form-group" ' + hidden + '>' +
+//            '<label>Prix achat Commande(En Yuan) </label>' +
+//            '<input type="text"  value="' + pa_com  + '" class="pa form-control" required />' +
+//            '<p> Prix achat produit origin '+pa+ ' Yuan </p>'+
+//            '</div>';
+//
+        jQuery.confirm({
+            title: '<span>' + title + '</span>',
+            content: '' +
+            '<form action="" class="formName">' +
+
+            '<div class="form-group">' +
+            '<label>Prix vente </label>' +
+            '<input type="text"  value="' + pv + '" class="pv form-control" required />' +
+            '</div>' +
+            pa_text +
+            '<div class="form-group">' +
+            '<label>Quantite </label>' +
+            '<input type="text"  value="' + qt + '" class="qt form-control" required />' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Description commande </label>' +
+            '<textarea  class="des form-control" >'+ des +'</textarea>' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Status produit </label>' +
+            status_dispaly(tid) +
+            '</div>' +
+
+            '</form>',
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        var qt = this.$content.find('.qt').val();
+                        var pv = this.$content.find('.pv').val();
+                        var pa = this.$content.find('.pa').val();
+                        var des = this.$content.find('.des').val();
+                        //pa = currency * pa;
+                        var status = this.$content.find('.status').val();
+                        var url = base_url + "/api/commande/" + com_nid + "/edit?"
+                        url = url + "&para=" + prod_nid;
+                        url = url + "&pa=" + pa;
+                        url = url + "&status=" + status;
+                        url = url + "&pv=" + pv;
+                        url = url + "&qt=" + qt;
+                        url = url + "&des=" + des;
+                        console.log(url);
+                        save_commande_edit(url);
+
+                        //location.href = current_url ;
+
+                    }
+                },
+                cancel: function () {
+                    //close
+                },
+            },
+            onContentReady: function () {
+                // bind to events
+                //var jc = this;
+                //this.$content.find('form').on('submit', function (e) {
+                //    // if the user submits the form by pressing enter in the field.
+                //    e.preventDefault();
+                //    jc.$$formSubmit.trigger('click'); // reference the button and click it
+                //});
+                this.$content.find("select").change(function () {
+                    var status_select = jQuery(this).val();
+                    //annuler
+                    if (status_select == 89) {
+                        jQuery(this).parent().parent().find(".pv").val(0);
+                    }
+                });
+            }
+        });
+    }
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="like" href="javascript:void(0)" title="Like">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('')
+    }
+
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            var pv = row.id ;
+            var qt = row.id;
+            console.log(row);
+            var title = 'Commmande editor';
+            jQuery.confirm({
+                title: '<span>' + title + '</span>',
+                content: '' +
+                '<form action="" class="formName">' +
+                '<div class="form-group">' +
+                '<label>Status produit </label>' +
+                '</div>' +
+                 '<select><option value=0>En payment</option><option value=0>En preparation</option></select>'+
+                '</form>',
+                buttons: {
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-blue',
+                        action: function () {
+//                            var qt = this.$content.find('.qt').val();
+//                            var pv = this.$content.find('.pv').val();
+//                            var pa = this.$content.find('.pa').val();
+//                            var des = this.$content.find('.des').val();
+//                            //pa = currency * pa;
+//                            var status = this.$content.find('.status').val();
+//                            var url = base_url + "/api/commande/" + com_nid + "/edit?"
+//                            url = url + "&para=" + prod_nid;
+//                            url = url + "&pa=" + pa;
+//                            url = url + "&status=" + status;
+//                            url = url + "&pv=" + pv;
+//                            url = url + "&qt=" + qt;
+//                            url = url + "&des=" + des;
+//                            console.log(url);
+//                            save_commande_edit(url);
+
+                            //location.href = current_url ;
+
+                        }
+                    },
+                    cancel: function () {
+                        //close
+                    },
+                },
+                onContentReady: function () {
+                    // bind to events
+                    //var jc = this;
+                    //this.$content.find('form').on('submit', function (e) {
+                    //    // if the user submits the form by pressing enter in the field.
+                    //    e.preventDefault();
+                    //    jc.$$formSubmit.trigger('click'); // reference the button and click it
+                    //});
+//                    this.$content.find("select").change(function () {
+//                        var status_select = jQuery(this).val();
+//                        //annuler
+//                        if (status_select == 89) {
+//                            jQuery(this).parent().parent().find(".pv").val(0);
+//                        }
+//                    });
+                }
+            });
+          //  alert('You click like action, row: ' + JSON.stringify(row))
+        },
+        'click .remove': function (e, value, row, index) {
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: [row.id]
+            })
+        }
+    }
+    function attribute(attr){
+        var html = [];
+
+        html.push("<ul class='attr-content'>");
+        jQuery.each(attr, function (keyparent, valueparent) {
+            html.push("<li class='item-attr'><b>"+keyparent+"</b>:"+valueparent.value);
+            if(valueparent.image){
+            html.push(" <img class='image-attr' src='"+valueparent.image+"' width='45px'/>");
+            }
+            html.push("</li>");
+
+        });
+        html.push("</ul>");
+
+        return html.join('');
+    }
+    function detailFormatter(index, row) {
+       //// console.log(row);
+        var html = [];
+        html.push("<table>");
+        html.push("<tr class='title-table'>");
+        html.push("<th>Produit </th>");
+        html.push("<th>Details </th>");
+        html.push("<th>Qte </th>");
+        html.push("<th>Prix unitaire </th>");
+        html.push("<th>Montant </th>");
+        html.push("</tr>");
+        var total = 0 ;
+        jQuery.each(row.orders, function (keyparent, valueparent) {
+          /// console.log(valueparent);
+           var montant = parseFloat(valueparent.cart.price) * parseFloat(valueparent.cart.quantity);
+            total = total +  montant ;
+            html.push("<tr>");
+            html.push("<td> <a href='/node/'"+valueparent.cart.product.id+"/edit'>"+ valueparent.cart.product.title +"</a></td>");
+            html.push("<td>"+attribute(valueparent.cart.attributeList)+"</td>");
+            html.push("<td>"+valueparent.cart.quantity+"</td>");
+            html.push("<td>"+valueparent.cart.price+"</td>");
+            html.push("<td>"+montant+" Ar </td>");
+            html.push("</tr>");
+        });
+        html.push("<tr><td></td><td></td><td></td>");
+        html.push("<td><b>Total</b></td><td>"+total+" Ar</td></tr>");
+        html.push("</table>");
+        return html.join('');
+    }
+    function statusFormatter(value, row, index) {
+        var array = ['En payment','En preparation','En Livraison','Livraison en client','Confirme']
+       return array[value];
+    }
+
+
+
+</script>

@@ -1,0 +1,8 @@
+name: 'server_json'
+type: module
+description: 'Build Server Json Page'
+core: 8.x
+package: 'Default'
+dependencies:
+ - drupal:views_bulk_operations
+ - mz_crud

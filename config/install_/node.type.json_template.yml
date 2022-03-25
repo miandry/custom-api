@@ -1,0 +1,21 @@
+uuid: 75e3dbca-3e1c-4a1f-a742-cdee92cba0e9
+langcode: fr
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - unique_entity_title
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  unique_entity_title:
+    enabled: false
+name: 'Json Template'
+type: json_template
+description: 'Generate json from drupal'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

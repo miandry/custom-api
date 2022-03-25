@@ -1,0 +1,37 @@
+uuid: 0602c660-015c-4234-a659-c3ebcd86bdb6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.content
+    - paragraphs.paragraphs_type.text
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    full_html: full_html
+    basic_html: '0'
+    css_code: '0'
+    html_code: '0'
+    json: '0'
+    json_code: '0'
+    restricted_html: '0'
+    yaml_code: '0'
+    plain_text: '0'
+    style_code: '0'
+id: paragraph.text.content
+field_name: content
+entity_type: paragraph
+bundle: text
+label: content
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: "<p><strong>Lorem Ipsum</strong>&nbsp;est un&nbsp;<strong>générateur de faux textes aléatoires</strong>. Vous choisissez le nombre de&nbsp;<strong>paragraphes</strong>, de&nbsp;<strong>mots</strong>&nbsp;ou de&nbsp;<strong>listes</strong>. Vous obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes.</p>\r\n\r\n<p>Le texte généré est du pseudo latin et peut donner l'impression d'être du vrai texte.</p>\r\n\r\n<p><em>Faux-Texte</em>&nbsp;est une réalisation du studio de création de sites internet indépendant&nbsp;<a href=\"https://www.prelude-prod.fr/\">Prélude Prod</a>.</p>\r\n\r\n<p>Si vous aimez la photographie d'art et l'esprit zen, jetez un œil sur le site de ce&nbsp;<a href=\"https://photos.prelude.me/\">photographe à Palaiseau</a>, en Essonne (France).</p>\r\n"
+    format: full_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

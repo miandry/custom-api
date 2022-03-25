@@ -1,0 +1,23 @@
+uuid: f1bd3ad5-803a-4964-ada2-bea461770dd4
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.json_template.paragraphs
+    - node.type.json_template
+  module:
+    - user
+id: node.json_template.teaser
+targetEntityType: node
+bundle: json_template
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true
+  paragraphs: true

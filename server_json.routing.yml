@@ -1,0 +1,27 @@
+sever_json.settings:
+  path: '/admin/config/deploy'
+  defaults:
+    _form: '\Drupal\server_json\Form\ServerJSONForm'
+    _title: 'Deploy Setting'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+sever_json.orders:
+  path: '/admin/files/json'
+  defaults:
+    _controller: '\Drupal\server_json\Controller\ServerJSONController::jsonFiles'
+    _title: 'Files list'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+sever_json.render_page:
+  path: '/render/page/{id}'
+  defaults:
+    _controller: '\Drupal\server_json\Controller\ServerJSONController::jsonRenderAPI'
+    _title: 'Render list'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE

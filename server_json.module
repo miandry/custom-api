@@ -1,0 +1,107 @@
+<?php
+
+/**
+ * @file
+ * Contains html_page.module.
+ */
+use Drupal\node\NodeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function server_json_page_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the html_page module.
+    case 'help.page.server_json':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Server json  Page') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+/**
+ * Implements hook_theme().
+ */
+function server_json_theme($existing, $type, $theme, $path) {
+    return array(
+        'server_json' => array(
+            'variables' => array(
+                'items' => array(),
+            )
+        )
+    );
+}
+/**
+ * Implements hook_cron().
+ *
+ * Runs all of the enabled schedules if they are due to be run..
+ */
+function server_json_cron() {
+    $order_json = \Drupal::service('order_json');
+    $json = $order_json->getItems('orders','');
+    $orders = \Drupal\Component\Serialization\Json::decode($json);
+    if(!empty($orders)){
+        foreach ($orders as $order){
+            $status = $order_json->importOrder($order);
+            $message = 'Successfull import order from json status = '.$status ;
+            \Drupal::logger("server_json")->info($message);
+        }
+    }
+}
+/**
+ * Implements hook_node_update().
+ *
+ */
+function server_json_node_update(NodeInterface $node) {
+    $bundle = $node->getType() ;
+    if($bundle == 'produit'){
+        // $productService = \Drupal::service('product_json');
+        // $productService->productUpdateJSON($node) ;
+    }
+    if($bundle=='commande'){
+       // $commandeService = \Drupal::service('order_json');
+      //  $commandeService->orderUpdateJSON($node) ;
+      //  $commandeService->numero_products($node);
+
+    }
+}
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ *
+ * Save the first value of field_article_tags to field_article_main_tag.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ */
+
+function server_json_node_presave(\Drupal\Core\Entity\EntityInterface $node) {
+
+    if ($node->getType() == 'commande') {
+//        $commandeService = \Drupal::service('order_json');
+//        $node_commande=$commandeService->sumTotalOrder($node);
+//        $total_vente = $node_commande["total_vente"];
+//        $total_achat =$node_commande["total_achat"];
+//        $node->setTitle("comapp-3p2exzdm61ykgmb9kb0");
+//        kint( $node);die();
+//        $node->set('field_total_vente', $total_vente);
+//        $node->set('field_total_achat', $total_achat);
+    }
+}
+
+/**
+ * Implements hook_node_update().
+ *
+ */
+function server_json_node_insert(NodeInterface $node) {
+    $bundle = $node->getType() ;
+    if($bundle == 'produit'){
+       // $productService = \Drupal::service('product_json');
+       // $productService->productUpdateJSON($node) ;
+    }
+    if($bundle=='commande'){
+        $commandeService = \Drupal::service('order_json');
+        $commandeService->numero_products($node);
+    }
+}
